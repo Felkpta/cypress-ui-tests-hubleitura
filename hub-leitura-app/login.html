@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Hub de Leitura - Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+    input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; background: #2196F3; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Login - Hub de Leitura</h2>
+  <input type="email" id="email" placeholder="E-mail">
+  <input type="password" id="password" placeholder="Senha">
+  <button id="login-btn" onclick="login()">Entrar</button>
+
+  <script>
+    const validUsers = [
+      { email: 'usuario@teste.com', password: 'user123', name: 'Usuário Teste' },
+      { email: 'admin@biblioteca.com', password: 'admin123', name: 'Admin' }
+    ];
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const allUsers = [...validUsers, ...users];
+      const user = allUsers.find(u => u.email === email && u.password === password);
+      if (user) {
+        localStorage.setItem('loggedUser', user.name);
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Credenciais inválidas');
+      }
+    }
+  </script>
+</body>
+</html>
